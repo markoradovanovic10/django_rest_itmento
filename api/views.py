@@ -1,16 +1,13 @@
-from operator import eq
-
-from django.shortcuts import render
-
-# Create your views here.
-
+from django.db.migrations import serializer
 from rest_framework.response import Response
 from .models import Item
-from .serializers import ItemSerializer
+from .serializers import ItemSerializer, RegisterSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
@@ -31,5 +28,19 @@ class ItemViewSet(viewsets.ModelViewSet):
             serializer = ItemSerializer(article)
             return Response(serializer.data)
         return Response({'message': 'No items found'}, status=400)
+
+class RegisterView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+         serializer = RegisterSerializer(data=request.data)
+         if serializer.is_valid():
+             user = serializer.save()
+             tokens = serializer.get_tokens(user)
+             return Response({
+                 'message': 'User registered successfully',
+                 'data': serializer.data,
+                 'tokens': tokens
+             }, status=201)
+         return Response(serializer.errors, status=400)
 
 

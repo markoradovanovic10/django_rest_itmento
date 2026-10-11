@@ -1,0 +1,17 @@
+### GET request to example server
+POST http://127.0.0.1:8000/api/register/
+Content-Type: application/json
+
+{
+    "username": "MarkoTest3",
+    "email": "test@test.com",
+    "password": "1234"
+}
+
+###
+POST http://127.0.0.1:8000/api/token/refresh/
+Content-Type: application/json
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjMyNzc3NiwiaWF0IjoxNzkxNzIyOTc2LCJqdGkiOiIyMDc3NTdiY2MyY2Y0ZGJjODliMGYxOGZiYmY4Yzg1MCIsInVzZXJfaWQiOiI0In0.lWIf-jfPNOuCgaLwbwOoESa89wtyMUFK5dh8Nc5nLTk"
+}
