@@ -1,0 +1,12 @@
+### GET request to example server
+POST http://127.0.0.1:8000/api/items/
+Content-Type: application/json
+
+{
+  "name": "Bojana Item",
+  "description": "Test text",
+  "price": -50.90
+
+}
+
+###

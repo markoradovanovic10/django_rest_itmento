@@ -1,9 +1,10 @@
 
 from django.contrib import admin
 from django.urls import path
-from api.views import test_enpoint
+from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', test_enpoint, name='test_endpoint')
+    path('', include('api.urls'))
+
 ]
