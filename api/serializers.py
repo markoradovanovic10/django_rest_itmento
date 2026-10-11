@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Item
+from .models import Item, Profile
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -33,3 +33,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             'refresh': str(refresh),
             'access': str(refresh.access_token)
         }
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['user', 'bio', 'profile_pic', 'birth_date', 'location', 'phone_number']

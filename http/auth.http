@@ -1,0 +1,23 @@
+###
+GET http://127.0.0.1:8000/api/profiles/1/
+Authorization: Bearer {{access}}
+
+###
+PATCH http://127.0.0.1:8000/api/profiles/1/
+Authorization: Bearer {{access}}
+Content-Type: application/json
+
+{
+  "birth_date": "1990-10-19"
+}
+
+### Register a user
+# @name RegisterUser
+POST http://127.0.0.1:8000/api/register/
+Content-Type: application/json
+
+{
+    "username": "MarkoTest4",
+    "email": "test@test.com",
+    "password": "1234"
+}

@@ -1,13 +1,20 @@
 from django.db.migrations import serializer
 from rest_framework.response import Response
-from .models import Item
-from .serializers import ItemSerializer, RegisterSerializer
+from .models import Item, Profile
+from .serializers import ItemSerializer, RegisterSerializer, ProfileSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from .permissions import IsProfileOwnerOrReadOnly
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+    permission_classes = [IsAuthenticated, IsProfileOwnerOrReadOnly]
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
