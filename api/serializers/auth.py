@@ -1,17 +1,6 @@
 from rest_framework import serializers
-from .models import Item, Profile
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
-
-class ItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
-        fields = '__all__'
-
-    def validate_price(self, value):
-        if value < 0:
-            raise serializers.ValidationError("Price cannot be negative.")
-        return value
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -33,8 +22,3 @@ class RegisterSerializer(serializers.ModelSerializer):
             'refresh': str(refresh),
             'access': str(refresh.access_token)
         }
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ['user', 'bio', 'profile_pic', 'birth_date', 'location', 'phone_number']
